@@ -9,6 +9,45 @@
   </head>
 
   <body>
+    <div class="container-fixed">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project Movie</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Home</a></li>
+              <li class="dropdown "><a href="#" id="drop1" data-toggle="dropdown" class="dropdown-toggle" role="button">Books <b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu" aria-labelledby="drop1">
+                  <li role="presentation"><a href="#" role="menuitem">HTML</a></li>
+                  <li role="presentation"><a href="#" role="menuitem">CSS</a></li>
+                  <li role="presentation"><a href="#" role="menuitem">JQuery</a></li>
+                  <li role="presentation"><a href="#" role="menuitem">JavaScript</a></li>
+                  <li role="presentation"><a href="#" role="menuitem">Bootstarp</a></li>
+                </ul>
+              </li>
+
+              <li class="dropdown ">
+                <a href="#" id="drop1" data-toggle="dropdown" class="dropdown-toggle" role="button">services <b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu" aria-labelledby="drop1">
+                  <li role="presentation"><a href="#" role="menuitem">services-1</a></li>
+                  <li role="presentation"><a href="#" role="menuitem">services-2</a></li>
+                  <li role="presentation"><a href="#" role="menuitem">services-3</a></li>
+                  <li role="presentation"><a href="#" role="menuitem">services-4</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
     <%= yield %>
+
   </body>
 </html>
