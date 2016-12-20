@@ -1,3 +1,16 @@
-// Place all the styles related to the Movies controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.container-image {
+  background-color : #f7f7f7;
+  height           : 353px;
+  width            : 250px;
+  position         : relative;
+  padding          : 5px;
+}
+
+.container-image-detail {
+  //width  : 342px;
+  //height : 491px;
+}
+
+.table-height {
+  height: 550px;
+}

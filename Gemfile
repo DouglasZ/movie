@@ -33,6 +33,12 @@ gem 'jbuilder', '~> 2.5'
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
 
+# MomentJS
+gem 'momentjs-rails', '>= 2.9.0'
+
+# DatePicker
+gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+
 # Paginação
 gem 'kaminari'
 

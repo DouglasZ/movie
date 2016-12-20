@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="page-header">
+    <div class="container-fluid">
+      <h2>Detalhes do filme</h2>
+      <div class="container-button">
+        <%= link_to 'Voltar', movies_path, class:'btn btn-default custom-button', style:'margin-right:5px'%>
+        <%= link_to 'Eidar', edit_movie_path(@movie), class:'btn btn-primary custom-button' %>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid whiteframe">
+    <div class="row whiteframe-body col-sm-12">
+      <div class="col-sm-4">
+        <div class="container-image-detail">
+          <img src="<%= @movie.image_link %>" class="img-responsive">
+        </div>
+      </div>
+      <div class="column col-sm-8" style="margin-top: 15px;">
+        <div class="column">
+          <label>Nome:</label>
+          <span><%= @movie.name %></span>
+        </div>
+        <div class="column">
+          <label>Data de lançamento:</label>
+          <span><%= @movie.release_date.strftime("%d/%m/%Y") %></span>
+        </div>
+        <div class="column">
+          <label>Direção:</label>
+          <span><%= @movie.director %></span>
+        </div>
+        <div class="column">
+          <label>Gênero:</label>
+          <span><%= @movie.gender %></span>
+        </div>
+        <div class="column" style="text-align: justify;">
+          <label>Sinopse</label>
+          <p><%= @movie.synopsis %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

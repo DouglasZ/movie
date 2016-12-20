@@ -13,88 +13,142 @@
  *= require_tree .
  *= require_self
  */
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-datetimepicker";
 
+html {
+  height : 100%;
+}
+
+body {
+  min-height       : 100%;
+  background-color : #F1F1F1;
+}
+
+.page-header {
+  border-color : #CCCCCC;
+}
 
 .open > .dropdown-menu {
-  -webkit-transform: scale(1, 1);
-  transform: scale(1, 1);
-  opacity:1;
+  -webkit-transform : scale(1, 1);
+  transform         : scale(1, 1);
+  opacity           : 1;
 }
 
 .dropdown-menu {
-  opacity:.3;
-  -webkit-transform-origin: top;
-  transform-origin: top;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-transform: scale(1, 0);
-  display: block;
-  transition: all 0.2s linear;
-  -webkit-transition: all 0.2s linear;
+  opacity                     : .3;
+  -webkit-transform-origin    : top;
+  transform-origin            : top;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode         : forwards;
+  -webkit-transform           : scale(1, 0);
+  display                     : block;
+  transition                  : all 0.2s linear;
+  -webkit-transition          : all 0.2s linear;
 }
 
 /* Custom container */
 .container-fixed {
-  margin: 60px auto;
-  max-width: 480px;
+  margin    : 60px auto;
+  max-width : 480px;
 }
 
-.navbar-nav
-{
-  float:right;
+.navbar-nav {
+  float : right;
 }
 
-h3 a
-{
-  font-size: 24pt;
+h3 a {
+  font-size : 24pt;
 }
 
-.img_cover{
-  max-width: 150px;
+.img_cover {
+  max-width : 150px;
 }
 
 .whiteframe-1dp {
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+  box-shadow : 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
 }
 
 .box-item {
-  height: 170px;
-  width: 150px;
-  background-color: #EFEFEF;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  border-radius: 3px;
+  height           : 170px;
+  width            : 150px;
+  background-color : #EFEFEF;
+  display          : flex;
+  flex-direction   : column;
+  text-align       : center;
+  border-radius    : 3px;
 }
 
 .box-item span.glyphicon {
-  font-size: 4em;
-  padding: 20px 0 30px 0;
+  font-size : 4em;
+  padding   : 20px 0 30px 0;
 }
 
 .box-item h3 {
-  font-weight: bold;
+  font-weight : bold;
 }
 
 .box-item:hover {
-  background-color: #E4E4E4;
-  cursor: pointer;
+  background-color : #E4E4E4;
+  cursor           : pointer;
 }
 
 .box-item a {
-  text-decoration: none;
-  color: inherit;
-  height: 100%;
+  text-decoration : none;
+  color           : inherit;
+  height          : 100%;
 }
 
 h2 {
-  margin-top: 10px;
+  margin-top    : 0;
+  margin-bottom : 0;
 }
 
 .page-header {
-  padding-bottom: 0;
-  margin: 0 0 10px;
+  padding-bottom : 0;
+  margin         : 0 0 10px;
+}
+
+.container-fluid {
+  margin-top    : 10px;
+  margin-bottom : 10px;
+  display       : flex;
+}
+
+.container-button {
+  margin-left : auto;
+}
+
+.whiteframe {
+  box-shadow       : 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+  background-color : #FFFFFF;
+  border-radius    : 3px;
+}
+
+.whiteframe-header {
+  border-bottom : 1px solid #CCCCCC;
+  font-weight   : bold;
+  padding       : 10px;
+  font-size     : 16px;
+}
+
+.whiteframe-body {
+  padding : 10px 0 10px 0;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.center {
+  justify-content: center;
+}
+
+.custom-button {
+  width: 80px;
 }
