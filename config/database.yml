@@ -82,4 +82,12 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
+#  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  host: ec2-50-19-125-201.compute-1.amazonaws.com
+  port: 5432
+  timeout: 5000
+  database: d620bq9chstag2
+  username: feplvgbffccpcw
+  password: fde2aa7a1974fb04990c3b8b3466cd067dbedfad258811c778335d6d114cfc24
