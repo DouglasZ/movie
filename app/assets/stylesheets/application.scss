@@ -15,7 +15,6 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "bootstrap-datetimepicker";
 
 html {
   height : 100%;
@@ -73,7 +72,7 @@ h3 a {
 .box-item {
   height           : 170px;
   width            : 150px;
-  background-color : #EFEFEF;
+  background-color : #FFFFFF;
   display          : flex;
   flex-direction   : column;
   text-align       : center;
@@ -90,7 +89,7 @@ h3 a {
 }
 
 .box-item:hover {
-  background-color : #E4E4E4;
+  background-color : #FBFBFB;
   cursor           : pointer;
 }
 
@@ -100,9 +99,10 @@ h3 a {
   height          : 100%;
 }
 
-h2 {
+h3 {
   margin-top    : 0;
   margin-bottom : 0;
+  padding-top   : 8px;
 }
 
 .page-header {
@@ -111,9 +111,8 @@ h2 {
 }
 
 .container-fluid {
-  margin-top    : 10px;
+  margin-top    : 0;
   margin-bottom : 10px;
-  display       : flex;
 }
 
 .container-button {
@@ -138,17 +137,17 @@ h2 {
 }
 
 .display-flex {
-  display: flex;
+  display : flex;
 }
 
 .end {
-  justify-content: flex-end;
+  justify-content : flex-end;
 }
 
 .center {
-  justify-content: center;
+  justify-content : center;
 }
 
 .custom-button {
-  width: 80px;
+  width : 80px;
 }

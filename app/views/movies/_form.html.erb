@@ -1,80 +1,57 @@
 <div class="container-fluid whiteframe">
-  <div >
-    <div class="whiteframe-body">
-      <%= form_for @movie do |m| %>
-
-          <div class="column">
-            <div class="row">
-              <div class="column col-sm-12">
-                <div class="row">
-                  <div class="col-sm-12 form-group">
-                    <label>Nome</label>
-                    <%= m.text_field :name, class: 'form-control' %>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class='col-sm-6'>
-                    <div class="form-group">
-                      <label>Data de lançamento</label>
-                      <div class='input-group date' id='datetimepicker'>
-                        <%= m.text_field :release_date, class: 'form-control' %>
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                      </div>
-                    </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker').datetimepicker();
-                        });
-                    </script>
-                  </div>
-
-                  <div class="col-sm-6 form-group">
-                    <label>Status</label>
-                    <%= m.select(:status, [[], ['Aguardando', 'waiting'], ['Baixado', 'downloaded'], ['Assistido', 'watched']], {}, {class: 'form-control'}) %>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <label>Direção</label>
-                    <%= m.text_field :director, class: 'form-control' %>
-                  </div>
-                  <div class="col-sm-6 form-group">
-                    <label>Gênero</label>
-                    <%= m.text_field :gender, class: 'form-control' %>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12 form-group">
-                    <label>Link da imagem</label>
-                    <%= m.text_field :image_link, class: 'form-control' %>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12 form-group">
-                    <label>Sinopse</label>
-                    <%= m.text_area :synopsis, class: 'form-control', style: 'height: 250px;' %>
-                  </div>
-                </div>
-              </div>
-              <!--TODO - Upload da imagem do filme-->
-              <!--<div class="column col-sm-4">-->
-                <!--<div class="container-image">-->
-
-                <!--</div>-->
-              <!--</div>-->
-            </div>
-
-            <div class="display-flex end">
-              <%= link_to 'Voltar', movies_path, class: 'btn btn-default custom-button', style: 'margin-right:5px' %>
-              <%= m.submit 'Salvar', class: 'btn btn-primary custom-button' %>
-            </div>
-          </div>
-
-      <% end %>
+  <div class="whiteframe-body">
+    <%= form_for @movie do |m| %>
+      <div class="row">
+    <div class="col-sm-12 form-group">
+      <label>Nome</label>
+      <%= m.text_field :name, class: 'form-control' %>
     </div>
   </div>
+
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <label>Data de lançamento</label>
+            <%= m.text_field :release_date, class: 'form-control release_date' %>
+          </div>
+
+          <div class="col-sm-6 form-group">
+            <label>Status</label>
+            <%= m.select(:status, [[], ['Aguardando', 'waiting'], ['Baixado', 'downloaded'], ['Assistido', 'watched']], {}, {class: 'form-control'}) %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <label>Direção</label>
+            <%= m.text_field :director, class: 'form-control' %>
+          </div>
+          <div class="col-sm-6 form-group">
+            <label>Gênero</label>
+            <%= m.text_field :gender, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <label>Link da imagem</label>
+            <%= m.text_field :image_link, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <label>Sinopse</label>
+            <%= m.text_area :synopsis, class: 'form-control', style: 'height: 250px;' %>
+          </div>
+        </div>
+        <div class="display-flex end">
+          <%= link_to 'Voltar', movies_path, class: 'btn btn-default custom-button', style: 'margin-right:5px' %>
+          <%= m.submit 'Salvar', class: 'btn btn-primary custom-button' %>
+        </div>
+    <% end %>
+  </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.release_date').mask('99/99/9999')
+    });
+</script>

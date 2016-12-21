@@ -1,11 +1,7 @@
 <div class="container">
   <div class="page-header">
     <div class="container-fluid">
-      <h2>Detalhes do filme</h2>
-      <div class="container-button">
-        <%= link_to 'Voltar', movies_path, class:'btn btn-default custom-button', style:'margin-right:5px'%>
-        <%= link_to 'Eidar', edit_movie_path(@movie), class:'btn btn-primary custom-button' %>
-      </div>
+      <h3>Detalhes</h3>
     </div>
   </div>
   <div class="container-fluid whiteframe">
@@ -36,7 +32,12 @@
           <label>Sinopse</label>
           <p><%= @movie.synopsis %></p>
         </div>
+        <div class="display-flex end">
+          <%= link_to 'Voltar', movies_path, class:'btn btn-default custom-button', style:'margin-right:5px'%>
+          <%= link_to 'Editar', edit_movie_path(@movie), class:'btn btn-primary custom-button' %>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
