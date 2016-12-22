@@ -1,4 +1,4 @@
 class Movie < ApplicationRecord
 
-  enum status: { waiting: 0, watched: 1, downloaded: 2  }
+  enum status: { waiting: 0, downloaded: 1, watched: 2 }
 end

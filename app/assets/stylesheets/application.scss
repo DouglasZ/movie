@@ -93,9 +93,12 @@ h3 a {
   cursor           : pointer;
 }
 
-.box-item a {
-  text-decoration : none;
+a {
   color           : inherit;
+  text-decoration : none !important;
+}
+
+.box-item a {
   height          : 100%;
 }
 

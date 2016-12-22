@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  release_date: 2016-12-20
+  status: 1
+  diretor: MyString
+  gender: MyString
+  sypnopsis: MyText
+
+two:
+  name: MyString
+  release_date: 2016-12-20
+  status: 1
+  diretor: MyString
+  gender: MyString
+  sypnopsis: MyText
