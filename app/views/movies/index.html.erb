@@ -36,7 +36,7 @@
 
           <tbody>
           <% @movies.each do |movie| %>
-              <tr class="<%= movie.status == 'waiting' ? 'warning' : movie.status == 'downloaded' ? 'info' : 'success' %>">
+              <tr class="<%= color_for movie %>">
                 <td>
                   <%= link_to movie_path(movie) do %>
                       <div style="height: 100%; width: 100%;">

@@ -10,4 +10,15 @@ module MoviesHelper
         'glyphicon-eye-open green'
     end
   end
+
+  def color_for(movie)
+    case movie.status
+      when 'waiting'
+        'warning'
+      when 'downloaded'
+        'info'
+      when 'watched'
+        'success'
+    end
+  end
 end
