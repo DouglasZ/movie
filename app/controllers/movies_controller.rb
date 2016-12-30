@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all.order(:status, :release_date)
+    @movies = Movie.all.order('status, release_date DESC')
 
     if params[:status].present?
       @movies = @movies.where(status: Movie.statuses[params[:status]])
