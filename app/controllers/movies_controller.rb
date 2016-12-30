@@ -22,6 +22,7 @@ class MoviesController < ApplicationController
 
   def edit
     @movie = Movie.find(params[:id])
+    @movie.release_date = @movie.release_date.strftime('%d%m%Y')
   end
 
   def create
@@ -55,6 +56,6 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.require(:movie).permit(:name, :release_date, :status, :director, :gender, :synopsis, :image_link)
+    params.require(:movie).permit(:name, :release_date, :status, :director, :gender, :synopsis, :image_link, :original_title)
   end
 end

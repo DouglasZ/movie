@@ -17,6 +17,10 @@
           <span><%= @movie.name %></span>
         </div>
         <div class="column">
+          <label>Título original:</label>
+          <span><%= @movie.original_title %></span>
+        </div>
+        <div class="column">
           <label>Data de lançamento:</label>
           <span><%= @movie.release_date.strftime("%d/%m/%Y") %></span>
         </div>
@@ -28,7 +32,7 @@
           <label>Gênero:</label>
           <span><%= @movie.gender %></span>
         </div>
-        <div class="column" style="text-align: justify;">
+        <div class="column synopsis">
           <label>Sinopse</label>
           <p><%= @movie.synopsis %></p>
         </div>

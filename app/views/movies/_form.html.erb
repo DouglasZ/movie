@@ -9,6 +9,13 @@
         </div>
 
         <div class="row">
+          <div class="col-sm-12 form-group">
+            <label>Título original</label>
+            <%= m.text_field :original_title, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-sm-6 form-group">
             <label>Data de lançamento</label>
             <%= m.text_field :release_date, class: 'form-control release_date' %>
@@ -52,6 +59,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.release_date').mask('99/99/9999')
+        $('.release_date').mask('99/99/9999');
     });
 </script>
