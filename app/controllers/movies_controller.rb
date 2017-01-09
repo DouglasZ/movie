@@ -27,8 +27,6 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.new(movie_params)
-    movie_params[:name].upcase!
-    movie_params[:original_title].upcase!
 
     if @movie.save
       redirect_to @movie
@@ -39,8 +37,6 @@ class MoviesController < ApplicationController
 
   def update
     @movie = Movie.find(params[:id])
-    movie_params[:name].upcase!
-    movie_params[:original_title].upcase!
 
     if @movie.update(movie_params)
       redirect_to @movie
