@@ -8,7 +8,8 @@
     <div class="row whiteframe-body col-sm-12">
       <div class="col-sm-4">
         <div class="container-image-detail">
-          <img src="<%= @movie.image_link %>" class="img-responsive">
+          <img src="<%= @movie.image_link %>" class="img-responsive <%= @movie.image_link? ? '' : 'hide' %>">
+          <span style="margin:111px;" class="glyphicon glyphicon-eye-close <%= @movie.image_link? ? 'hide' : '' %>"></span>
         </div>
       </div>
       <div class="column col-sm-8" style="margin-top: 15px;">

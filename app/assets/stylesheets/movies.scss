@@ -12,23 +12,52 @@
 }
 
 .table-height {
-  min-height: 580px;
+  min-height : 580px;
 }
 
 .green {
-  color: green;
+  color : green;
 }
 
 .blue {
-  color: blue;
+  color : blue;
 }
 
 .orange {
-  color: orange;
+  color : orange;
 }
 
 .synopsis {
-  text-align: justify;
-  padding-top: 10px;
-  border-top: 1px solid #CCCCCC;
+  text-align  : justify;
+  padding-top : 10px;
+  border-top  : 1px solid #CCCCCC;
+}
+
+.preview {
+  text-align     : center;
+  display        : flex;
+  flex-direction : column;
+}
+
+.preview > div {
+  flex            : 1;
+  display         : flex;
+  justify-content : center;
+}
+
+.preview img {
+  height : 324px;
+}
+
+.glyphicon-eye-close {
+  font-size : 2.2em;
+  color     : #CCCCCC;
+}
+
+.preview span {
+  top : 110px;
+}
+
+.hide {
+  display : none;
 }

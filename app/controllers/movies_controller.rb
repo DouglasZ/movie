@@ -52,6 +52,9 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+  def image
+    @url = Movie.get_url(params['name'], params['year'])
+  end
 
   private
 

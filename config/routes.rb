@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :movies
+  resources :movies do
+    collection do
+      get 'image'
+    end
+  end
 
   root 'home#index'
 

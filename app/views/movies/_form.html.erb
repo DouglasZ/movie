@@ -37,18 +37,27 @@
             <%= m.text_field :gender, class: 'form-control' %>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-sm-12 form-group">
-            <label>Link da imagem</label>
-            <%= m.text_field :image_link, class: 'form-control' %>
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label>Link da imagem</label>
+              <%= m.text_field :image_link, class: 'form-control' %>
+            </div>
+            <div class="form-group">
+              <label>Sinopse</label>
+              <%= m.text_area :synopsis, class: 'form-control', style: 'height: 250px;' %>
+            </div>
+          </div>
+          <div class="col-sm-4 form-group preview">
+            <label>Imagem</label>
+            <div>
+              <img class="img-responsive preview-image">
+              <span style="display:none;" class="glyphicon glyphicon-eye-close"></span>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12 form-group">
-            <label>Sinopse</label>
-            <%= m.text_area :synopsis, class: 'form-control', style: 'height: 250px;' %>
-          </div>
-        </div>
+
         <div class="display-flex end">
           <%= link_to 'Voltar', movies_path, class: 'btn btn-default custom-button', style: 'margin-right:5px' %>
           <%= m.submit 'Salvar', class: 'btn btn-primary custom-button' %>
@@ -60,5 +69,18 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.release_date').mask('99/99/9999');
+
+        checkImage($('#movie_image_link').val());
+
+        $('#movie_image_link').on('blur', function() {
+            checkImage($('#movie_image_link').val());
+        });
+
+        $('#movie_release_date').on('blur', function() {
+            $.ajax({
+                url: '/movies/image',
+                data: {'name': $('#movie_name').val(), 'year': $('#movie_release_date').val().split("/")[2]},
+            });
+        });
     });
 </script>
