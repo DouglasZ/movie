@@ -1,7 +1,7 @@
-$('#movie_image_link').val("<%= @url %>");
+$('#movie_image_link').val("<%= @obj.src %>");
+$('#movie_original_title').val("<%= @obj.originalTitle %>");
 
-var url = "<%= @url %>";
-console.log(url);
+var url = "<%= @obj.src %>";
 if( url ) {
     $('.preview-image').attr("src", url);
     $('.preview-image').show();

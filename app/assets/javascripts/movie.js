@@ -1,5 +1,5 @@
-function checkImage( url ) {
-    if( url ){
+function checkImage(url) {
+    if (url) {
         $('.preview-image').attr('src', url);
         $('.preview-image').show();
         $('.glyphicon-eye-close').hide();

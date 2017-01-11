@@ -53,7 +53,7 @@ class MoviesController < ApplicationController
   end
 
   def image
-    @url = Movie.get_url(params['name'], params['year'])
+    @obj = Movie.get_url(params['name'], params['year'])
   end
 
   private
