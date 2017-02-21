@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
       @movies = @movies.where('name ILIKE ?', "%#{params[:name]}%")
     end
 
-    @movies = @movies.page(params[:page]).per(15)
+    @movies = @movies.page(params[:page]).per(24)
   end
 
   def show

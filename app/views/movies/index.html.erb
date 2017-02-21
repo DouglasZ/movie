@@ -23,48 +23,25 @@
           </div>
         </div>
     <% end%>
-      <div class="table-height">
-        <table class="table" cellspacing="0" width="100%" style="margin-top: 10px;">
-          <thead>
-          <tr>
-            <th>Nome</th>
-            <th width="12%" style="text-align: center;">Data lançamento</th>
-            <th width="5%" style="text-align: center;">Status</th>
-            <th style="text-align: center; width: 70px;">Options</th>
-          </tr>
-          </thead>
-
-          <tbody>
-          <% @movies.each do |movie| %>
-              <tr class="<%= color_for movie %>">
-                <td>
-                  <%= link_to movie_path(movie) do %>
-                      <div style="height: 100%; width: 100%;">
-                        <%= movie.name %>
-                      </div>
-                  <% end %>
-                </td>
-                <td style="text-align: center;">
-                    <%= movie.release_date.strftime("%d/%m/%Y") %>
-                </td>
-                <td style="text-align: center;">
-                  <span class="glyphicon <%= icon_for movie %>"></span>
-                </td>
-                <td align="center">
-                  <%= link_to edit_movie_path(movie), style:'margin-right:15px;' do %>
-                      <span class="glyphicon glyphicon-pencil"></span>
-                  <% end %>
-                  <%= link_to movie_path(movie), method: :delete, data: { confirm: 'Are you sure?' } do %>
-                      <span class="glyphicon glyphicon-trash"></span>
-                  <% end %>
-                </td>
-              </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="display-flex center">
-        <%= paginate @movies %>
-      </div>
+    <div>
+        <% @movies.each do |movie| %>
+          <div class="box-filme">
+            <div class="content" title="<%= movie.name %>">
+                <%= link_to movie_path(movie),  class:'thumb' do %>
+                  <img src="<%= movie.image_link %>" class="img-full">
+                <% end %>
+                <div class="tt-filme">
+                  <div class="text-overflow">
+                    <span><%= movie.name %></span>
+                  </div>
+                  <span class="release-date"><%= movie.release_date.strftime("%d/%m/%Y") %></span>
+                </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+    <div class="display-flex center">
+      <%= paginate @movies %>
+    </div>
   </div>
 </div>
