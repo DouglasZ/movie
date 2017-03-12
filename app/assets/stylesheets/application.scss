@@ -160,3 +160,10 @@ h3 {
   font-size   : 8px;
   line-height : 50px;
 }
+
+.filter-button {
+  display         : flex;
+  justify-content : flex-end;
+  margin-top      : 24px;
+  padding-right   : 21px;
+}

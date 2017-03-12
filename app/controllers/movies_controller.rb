@@ -8,6 +8,9 @@ class MoviesController < ApplicationController
     if params[:name].present?
       @movies = @movies.where('name ILIKE ?', "%#{params[:name]}%")
     end
+    if params[:start_date].present? && params[:end_date].present?
+      @movies = @movies.where('release_date >= ? AND release_date <= ?', "%#{params[:start_date]}%", "%#{params[:end_date]}%")
+    end
 
     @movies = @movies.page(params[:page]).per(24)
   end
