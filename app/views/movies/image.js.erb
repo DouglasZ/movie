@@ -1,5 +1,10 @@
 $('#movie_image_link').val("<%= @obj.src %>");
-$('#movie_original_title').val("<%= @obj.originalTitle %>");
+$('#movie_name').val("<%= @obj.movie_name %>");
+$('#movie_original_title').val("<%= @obj.original_title %>");
+$('#movie_release_date').val("<%= @obj.release_date %>");
+$('#movie_director').val("<%= @obj.director %>");
+$('#movie_gender').val("<%= @obj.gender %>");
+$('#movie_synopsis').val("<%= @obj.synopsis %>");
 
 var url = "<%= @obj.src %>";
 if( url ) {

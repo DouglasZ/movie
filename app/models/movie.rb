@@ -8,20 +8,75 @@ class Movie < ApplicationRecord
   end
 
   def self.get_url(name, year)
-    url = "http://www.zeronave.com/search/"+URI.encode(name)
+
+    month = {}
+    month['janeiro']= '01'
+    month['fevereiro']= '02'
+    month['marco']= '03'
+    month['abril']= '04'
+    month['maio']= '05'
+    month['junho']= '06'
+    month['julho']= '07'
+    month['agosto']= '08'
+    month['setembro']= '09'
+    month['outubro']= '10'
+    month['novembro']= '11'
+    month['dezembro']= '12'
+
+    url = 'http://www.adorocinema.com/busca/?q='+URI.encode(name)
     src = nil
-    originalTitle = nil
+    movie_name = nil
+    original_title = nil
+    release_date = nil
+    director = nil
+    gender  = ''
+    synopsis = nil
+
     Timeout::timeout(10) do
       doc = Nokogiri::HTML(open(url))
-      nodes = doc.css(".block.margin-tb-10")
+      nodes = doc.css('table.totalwidth.noborder.purehtml tr')
       nodes.each do |node|
-        if node.css(".movie-heading small").text.to_i == year.to_i
-          src = node.css(".box-movie.medium").attr('src')
-          originalTitle = node.css(".movie-sub-heading").text
+        if node.css('span.fs11').text.to_i == year.to_i
+
+          url_detail = 'http://www.adorocinema.com'+node.css('a')[0].xpath('@href').text
+          detail = Nokogiri::HTML(open(url_detail))
+
+          movie_name = detail.css('.titlebar-title.titlebar-title-lg').text
+
+          node_detail = detail.css('div.meta.col-xs-12.col-md-8')
+
+          release_date = node_detail.css('.date.blue-link').text.split(' ')
+          release_date[0] = release_date[0].to_i < 10 ? '0'+release_date[0] : release_date[0]
+          release_date = release_date[0]+'/'+month[release_date[2].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.to_s]+'/'+release_date[4]
+
+          director = node_detail.css('.meta-body-item')[1].css('a').text
+
+          node_detail.css('.meta-body-item')[3].css('.blue-link').each_with_index do |gender_text, index|
+            if  node_detail.css('.meta-body-item')[3].css('.blue-link').length == index+1
+              gender += gender_text.text
+            else
+              gender += gender_text.text+', '
+            end
+          end
+          node_detail = detail.css('.section.ovw.ovw-synopsis')
+          synopsis = node_detail.css('.synopsis-txt').text
+          original_title = node_detail.css('.ovw-synopsis-info').css('h2.that').text
           break
         end
       end
     end
-    OpenStruct.new('src': src, 'originalTitle': originalTitle)
+
+    url = 'http://www.zeronave.com/search/'+URI.encode(name)
+    Timeout::timeout(10) do
+      doc = Nokogiri::HTML(open(url))
+      nodes = doc.css('.block.margin-tb-10')
+      nodes.each do |node|
+        if node.css('.movie-heading small').text.to_i == year.to_i
+          src = node.css('.box-movie.medium').attr('src')
+          break
+        end
+      end
+    end
+    OpenStruct.new('src': src, 'movie_name': movie_name, 'original_title': original_title, 'release_date': release_date, 'director': director, 'gender': gender, 'synopsis': synopsis)
   end
 end

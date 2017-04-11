@@ -2,9 +2,14 @@
   <div class="whiteframe-body">
     <%= form_for @movie do |m| %>
         <div class="row">
-          <div class="col-sm-12 form-group">
+          <div class="col-sm-10 form-group">
             <label>Nome</label>
             <%= m.text_field :name, class: 'form-control' %>
+          </div>
+          <div class="col-sm-2 form-group">
+            <label class="label-movie-year">Ano do filme</label>
+            <input type="text" class="form-control movie_year">
+            <div class="loader" style="display: none;"></div>
           </div>
         </div>
 
@@ -76,10 +81,22 @@
             checkImage($('#movie_image_link').val());
         });
 
-        $('#movie_release_date').on('blur', function() {
+        $('.movie_year').on('blur', function() {
             $.ajax({
                 url: '/movies/image',
-                data: {'name': $('#movie_name').val(), 'year': $('#movie_release_date').val().split("/")[2]},
+                data: {'name': $('#movie_name').val(), 'year': $('.movie_year').val()},
+                beforeSend: function() {
+                    $('.loader').show();
+                    $('.label-movie-year').text("Buscando...");
+                },
+                success: function() {
+                    $('.loader').hide();
+                    $('.label-movie-year').text("Ano do filme");
+                },
+                error: function() {
+                    $('.loader').hide();
+                    $('.label-movie-year').text("Ano do filme");
+                }
             });
         });
     });
