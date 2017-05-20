@@ -68,7 +68,7 @@ class Movie < ApplicationRecord
             end
           end
           node_detail = detail.css('.section.ovw.ovw-synopsis')
-          synopsis = node_detail.css('.synopsis-txt').text
+          synopsis = node_detail.css('.synopsis-txt').text.strip
           original_title = node_detail.css('.ovw-synopsis-info').css('h2.that').text
           break
         end
