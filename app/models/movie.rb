@@ -29,6 +29,7 @@ class Movie < ApplicationRecord
     original_title = nil
     release_date = nil
     director = nil
+    cast = ''
     gender  = ''
     synopsis = nil
 
@@ -50,6 +51,14 @@ class Movie < ApplicationRecord
           release_date = release_date[0]+'/'+month[release_date[2].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.to_s]+'/'+release_date[4]
 
           director = node_detail.css('.meta-body-item')[1].css('a').text
+
+          node_detail.css('.meta-body-item')[2].css('.blue-link').each_with_index do |cast_text, index|
+            if  index+1 == 3
+              cast += cast_text.text
+            elsif index+1 < 3
+              cast += cast_text.text+', '
+            end
+          end
 
           node_detail.css('.meta-body-item')[3].css('.blue-link').each_with_index do |gender_text, index|
             if  node_detail.css('.meta-body-item')[3].css('.blue-link').length == index+1
@@ -77,6 +86,6 @@ class Movie < ApplicationRecord
         end
       end
     end
-    OpenStruct.new('src': src, 'movie_name': movie_name, 'original_title': original_title, 'release_date': release_date, 'director': director, 'gender': gender, 'synopsis': synopsis)
+    OpenStruct.new('src': src, 'movie_name': movie_name, 'original_title': original_title, 'release_date': release_date, 'director': director, 'gender': gender, 'synopsis': synopsis, 'cast': cast)
   end
 end
