@@ -42,7 +42,7 @@ class Movie < ApplicationRecord
         if node.css('span.fs11').text.to_i == year.to_i
 
           url_detail = 'http://www.adorocinema.com'+node.css('a')[0].xpath('@href').text
-          detail = Nokogiri::HTML(open(url_detail))
+          detail = Nokogiri::HTML(open(url_detail).read)
 
           movie_name = detail.css('.titlebar-title.titlebar-title-lg').text
 
@@ -79,7 +79,7 @@ class Movie < ApplicationRecord
 
     url = 'http://www.zeronave.com/search/'+URI.encode(name)
     Timeout::timeout(10) do
-      doc = Nokogiri::HTML(open(url))
+      doc = Nokogiri::HTML(open(url).read)
       nodes = doc.css('.block.margin-tb-10')
       nodes.each do |node|
         if node.css('.movie-heading small').text.to_i == year.to_i
