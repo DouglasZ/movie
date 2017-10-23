@@ -9,7 +9,9 @@ class MoviesController < ApplicationController
       @movies = @movies.where('name ILIKE ?', "%#{params[:name]}%")
     end
     if params[:start_date].present? && params[:end_date].present?
-      @movies = @movies.where('release_date >= ? AND release_date <= ?', "%#{params[:start_date]}%", "%#{params[:end_date]}%")
+      start_date  = params[:start_date].split('/')[2]+'-'+params[:start_date].split('/')[1]+'-'+params[:start_date].split('/')[0]
+      end_date    = params[:end_date].split('/')[2]+'-'+params[:end_date].split('/')[1]+'-'+params[:end_date].split('/')[0]
+      @movies = @movies.where('release_date >= ? AND release_date <= ?', "%#{start_date}%", "%#{end_date}%")
     end
 
     @movies = @movies.page(params[:page]).per(24)
