@@ -34,7 +34,7 @@ class Movie < ApplicationRecord
     synopsis = nil
 
     Timeout::timeout(10) do
-      doc = Nokogiri::HTML(open(url))
+      doc = Nokogiri::HTML(open(url).read)
       nodes = doc.css('table.totalwidth.noborder.purehtml tr')
       nodes.each do |node|
         if node.css('span.fs11').text.to_i == year.to_i
