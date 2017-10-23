@@ -20,6 +20,7 @@
           </div>
           <div class="col-xs-12 col-sm-3 col-md-2 form-group">
             <label>Date início</label>
+            <a href="#" style="float: right; color: #3498db;" onclick="currentDate()">Este mês</a>
             <%= text_field_tag :start_date, params[:start_date], class: 'form-control release_date start-date' %>
           </div>
           <div class="col-xs-12 col-sm-3 col-md-2 form-group">
@@ -27,7 +28,8 @@
             <%= text_field_tag :end_date, params[:end_date], class: 'form-control release_date end-date' %>
           </div>
           <div class="col-xs-12 col-sm-2 col-md-2 form-group filter-button">
-            <button type="submit" class="btn btn-default custom-button">Filtrar</button>
+            <button style="margin-right: 5px;" class="btn btn-default custom-button" onclick="clearFilters()">Limpar</button>
+            <button type="submit" class="btn btn-info custom-button">Filtrar</button>
           </div>
         </div>
     <% end%>
@@ -61,12 +63,32 @@
 //        lastFocus = $(this);
 //    });
 
+    function clearFilters() {
+        $('.field-name').val('');
+        $('.field-status').val('');
+        $('.start-date').val('');
+        $('.end-date').val('');
+
+    }
+
+    function currentDate() {
+
+        var current = new Date();
+        var lastDay = new Date(current.getFullYear(), current.getMonth()+1, 0);
+
+        $('.start-date').val('01/'+(current.getMonth()+1)+'/'+current.getFullYear());
+        $('.end-date').val(lastDay.getDate()+'/'+ (current.getMonth()+1) +'/'+current.getFullYear());
+
+        $( "#form-list-movies" ).submit();
+    }
+
     function listMovies() {
         clearTimeout( timeout );
         timeout = setTimeout(function(){
             $( "#form-list-movies" ).submit();
-        },100);
+        },1500);
     }
+
     $(document).ready(function () {
         $('.release_date').mask('99/99/9999');
 //        if (lastFocus.length == 1)
