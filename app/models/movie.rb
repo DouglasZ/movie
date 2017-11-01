@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Movie < ApplicationRecord
 
   enum status: {waiting: 0, downloaded: 1, watched: 2}
@@ -23,7 +25,7 @@ class Movie < ApplicationRecord
     month['novembro']= '11'
     month['dezembro']= '12'
 
-    url = 'http://www.adorocinema.com/busca/?q='+URI.encode(name)
+    url = URI.parse('http://www.adorocinema.com/busca/?q='+URI.encode(name))
     src = nil
     movie_name = nil
     original_title = nil
@@ -39,7 +41,7 @@ class Movie < ApplicationRecord
       nodes.each do |node|
         if node.css('span.fs11').text.to_i == year.to_i
 
-          url_detail = 'http://www.adorocinema.com'+node.css('a')[0].xpath('@href').text
+          url_detail = URI.parse('http://www.adorocinema.com'+node.css('a')[0].xpath('@href').text)
           detail = Nokogiri::HTML(open(url_detail))
 
           movie_name = detail.css('.titlebar-title.titlebar-title-lg').text
@@ -75,7 +77,7 @@ class Movie < ApplicationRecord
       end
     end
 
-    url = 'http://www.zeronave.com/search/'+URI.encode(name)
+    url = URI.parse('http://www.zeronave.com/search/'+URI.encode(name))
     Timeout::timeout(10) do
       doc = Nokogiri::HTML(open(url))
       nodes = doc.css('.block.margin-tb-10')
