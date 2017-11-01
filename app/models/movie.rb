@@ -77,7 +77,7 @@ class Movie < ApplicationRecord
       end
     end
 
-    url = URI.parse('http://www.zeronave.com/search/'+URI.encode(name))
+    url = URI.parse('https://www.zeronave.com/search/'+URI.encode(name))
     Timeout::timeout(10) do
       doc = Nokogiri::HTML(open(url))
       nodes = doc.css('.block.margin-tb-10')
