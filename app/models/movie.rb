@@ -77,17 +77,17 @@ class Movie < ApplicationRecord
       end
     end
 
-    url = URI.parse('https://www.zeronave.com/search/'+URI.encode(name))
-    Timeout::timeout(10) do
-      doc = Nokogiri::HTML(open(url))
-      nodes = doc.css('.block.margin-tb-10')
-      nodes.each do |node|
-        if node.css('.movie-heading small').text.to_i == year.to_i
-          src = node.css('.box-movie.medium').attr('src')
-          break
-        end
-      end
-    end
+    # url = URI.parse('https://www.zeronave.com/search/'+URI.encode(name))
+    # Timeout::timeout(10) do
+    #   doc = Nokogiri::HTML(open(url))
+    #   nodes = doc.css('.block.margin-tb-10')
+    #   nodes.each do |node|
+    #     if node.css('.movie-heading small').text.to_i == year.to_i
+    #       src = node.css('.box-movie.medium').attr('src')
+    #       break
+    #     end
+    #   end
+    # end
     OpenStruct.new('src': src, 'movie_name': movie_name, 'original_title': original_title, 'release_date': release_date, 'director': director, 'gender': gender, 'synopsis': synopsis, 'cast': cast)
   end
 end
