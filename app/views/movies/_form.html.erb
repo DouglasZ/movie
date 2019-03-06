@@ -85,6 +85,8 @@
             checkImage($('#movie_image_link').val());
         });
 
+        $('#movie_status option[value="waiting"]').prop('selected', true);
+
         $('.movie_year').on('blur', function() {
             $.ajax({
                 url: '/movies/image',

@@ -30,7 +30,7 @@ class Movie < ApplicationRecord
     movie_name = nil
     original_title = nil
     release_date = nil
-    director = nil
+    director = ''
     cast = ''
     gender  = ''
     synopsis = nil
@@ -52,7 +52,14 @@ class Movie < ApplicationRecord
           release_date[0] = release_date[0].to_i < 10 ? '0'+release_date[0] : release_date[0]
           release_date = release_date[0]+'/'+month[release_date[2].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.to_s]+'/'+release_date[4]
 
-          director = node_detail.css('.meta-body-item')[1].css('a').text
+          directors = node_detail.css('.meta-body-item')[1].css('.blue-link')
+          directors.each_with_index do |director_text, index|
+            if directors.length == index+1
+              director += director_text.text
+            else
+              director += director_text.text+', '
+            end
+          end
 
           node_detail.css('.meta-body-item')[2].css('.blue-link').each_with_index do |cast_text, index|
             if  index+1 == 3
@@ -62,18 +69,32 @@ class Movie < ApplicationRecord
             end
           end
 
-          node_detail.css('.meta-body-item')[3].css('.blue-link').each_with_index do |gender_text, index|
-            if  node_detail.css('.meta-body-item')[3].css('.blue-link').length == index+1
+          genders = node_detail.css('.meta-body-item')[3].css('.blue-link')
+          genders.each_with_index do |gender_text, index|
+            if genders.length == index+1
               gender += gender_text.text
             else
               gender += gender_text.text+', '
             end
           end
           node_detail = detail.css('.section.ovw.ovw-synopsis')
-          synopsis = node_detail.css('.synopsis-txt').text.strip
+          synopsis = node_detail.css('.content-txt').text.strip
           original_title = node_detail.css('.ovw-synopsis-info').css('h2.that').text
           break
         end
+      end
+    end
+
+    url = URI.parse('https://www.themoviedb.org/search?query='++URI.encode(original_title)+'&language=en-US')
+    Timeout::timeout(10) do
+      doc = Nokogiri::HTML(open(url))
+      nodes = doc.css('.image_content')
+      nodes.each do |node|
+        # if node.css('.result').attr('title').text == original_title
+          src = node.css('.poster.lazyload.fade').attr('data-srcset').text.split(',')[1]
+          src = src[0..src.length-4]
+          break
+        # end
       end
     end
 
