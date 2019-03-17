@@ -80,12 +80,13 @@ class Movie < ApplicationRecord
           node_detail = detail.css('.section.ovw.ovw-synopsis')
           synopsis = node_detail.css('.content-txt').text.strip
           original_title = node_detail.css('.ovw-synopsis-info').css('h2.that').text
+          original_title = !original_title.empty? ? original_title : movie_name
           break
         end
       end
     end
 
-    url = URI.parse('https://www.themoviedb.org/search?query='++URI.encode(original_title)+'&language=en-US')
+    url = URI.parse('https://www.themoviedb.org/search?query='+URI.encode(original_title)+'&language=en-US')
     Timeout::timeout(10) do
       doc = Nokogiri::HTML(open(url))
       nodes = doc.css('.image_content')
