@@ -86,7 +86,7 @@ class Movie < ApplicationRecord
       end
     end
 
-    url = URI.parse('https://www.themoviedb.org/search?query='+URI.encode(original_title)+'&language=en-US')
+    url = URI.parse('https://www.themoviedb.org/search/movie?query='+URI.encode(original_title)+'&language=en-US')
     Timeout::timeout(10) do
       doc = Nokogiri::HTML(open(url))
       nodes = doc.css('.image_content')
