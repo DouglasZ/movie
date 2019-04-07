@@ -1,4 +1,6 @@
 class MoviesController < ApplicationController
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
+
   def index
     @movies = Movie.all.order('status, release_date ASC')
 
@@ -62,6 +64,14 @@ class MoviesController < ApplicationController
   end
 
   private
+
+  # Confirms a logged-in user.
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Você não está logado no sistema."
+      redirect_to login_url
+    end
+  end
 
   def movie_params
     params.require(:movie).permit(:name, :release_date, :status, :director, :gender, :synopsis, :image_link, :original_title, :cast)

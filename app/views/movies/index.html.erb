@@ -1,60 +1,59 @@
-<div class="container">
-  <div class="page-header">
-    <div class="container-fluid display-flex">
-      <h3>Lista de filmes</h3>
-      <div class="container-button">
-        <%= link_to 'Novo filme', new_movie_path, class:'btn btn-primary' %>
-      </div>
-    </div>
-  </div>
-  <div class="whiteframe whiteframe-body" style="padding: 10px;">
-    <%= form_tag(movies_path, method: :get, :id => 'form-list-movies', :style => 'padding: 0 7px;') do %>
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-4 form-group">
-            <label>Nome</label>
-            <%= text_field_tag :name, params[:name], class: 'form-control field-name', onkeyup: 'listMovies()' %>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-2 form-group">
-            <label>Status</label>
-            <%= select_tag(:status, options_for_select([['Aguardando', 'waiting'], ['Baixado', 'downloaded'], ['Assistido', 'watched']], params[:status]), onchange: 'listMovies()', class: 'form-control field-status', include_blank: true) %>
-          </div>
-          <div class="col-xs-12 col-sm-3 col-md-2 form-group">
-            <label>Date início</label>
-            <a href="#" style="float: right; color: #3498db;" onclick="currentDate()">Este mês</a>
-            <%= text_field_tag :start_date, params[:start_date], class: 'form-control release_date start-date' %>
-          </div>
-          <div class="col-xs-12 col-sm-3 col-md-2 form-group">
-            <label>Date término</label>
-            <%= text_field_tag :end_date, params[:end_date], class: 'form-control release_date end-date' %>
-          </div>
-          <div class="col-xs-12 col-sm-2 col-md-2 form-group filter-button">
-            <button style="margin-right: 5px;" class="btn btn-default custom-button" onclick="clearFilters()">Limpar</button>
-            <button type="submit" class="btn btn-info custom-button">Filtrar</button>
-          </div>
-        </div>
-    <% end%>
-    <div>
-        <% @movies.each do |movie| %>
-          <div class="box-filme">
-            <div class="content" title="<%= movie.name %>">
-                <%= link_to movie_path(movie),  class:'thumb' do %>
-                  <img src="<%= movie.image_link %>" class="img-full">
-                <% end %>
-                <div class="tt-filme">
-                  <div class="text-overflow">
-                    <span><%= movie.name %></span>
-                  </div>
-                  <span class="release-date"><%= movie.release_date.strftime("%d/%m/%Y") %></span>
-                </div>
-            </div>
-          </div>
-        <% end %>
-    </div>
-    <div class="display-flex center">
-      <%= paginate @movies %>
+<div class="page-header">
+  <div class="container-fluid display-flex">
+    <h3>Lista de filmes</h3>
+    <div class="container-button">
+      <%= link_to 'Novo filme', new_movie_path, class:'btn btn-primary' %>
     </div>
   </div>
 </div>
+<div class="whiteframe whiteframe-body" style="padding: 10px;">
+  <%= form_tag(movies_path, method: :get, :id => 'form-list-movies', :style => 'padding: 0 7px;') do %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 form-group">
+          <label>Nome</label>
+          <%= text_field_tag :name, params[:name], class: 'form-control field-name', onkeyup: 'listMovies()' %>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-2 form-group">
+          <label>Status</label>
+          <%= select_tag(:status, options_for_select([['Aguardando', 'waiting'], ['Baixado', 'downloaded'], ['Assistido', 'watched']], params[:status]), onchange: 'listMovies()', class: 'form-control field-status', include_blank: true) %>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-2 form-group">
+          <label>Date início</label>
+          <a href="#" style="float: right; color: #3498db;" onclick="currentDate()">Este mês</a>
+          <%= text_field_tag :start_date, params[:start_date], class: 'form-control release_date start-date' %>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-2 form-group">
+          <label>Date término</label>
+          <%= text_field_tag :end_date, params[:end_date], class: 'form-control release_date end-date' %>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 form-group filter-button">
+          <button style="margin-right: 5px;" class="btn btn-default custom-button" onclick="clearFilters()">Limpar</button>
+          <button type="submit" class="btn btn-info custom-button">Filtrar</button>
+        </div>
+      </div>
+  <% end%>
+  <div>
+      <% @movies.each do |movie| %>
+        <div class="box-filme">
+          <div class="content" title="<%= movie.name %>">
+              <%= link_to movie_path(movie),  class:'thumb' do %>
+                <img src="<%= movie.image_link %>" class="img-full">
+              <% end %>
+              <div class="tt-filme">
+                <div class="text-overflow">
+                  <span><%= movie.name %></span>
+                </div>
+                <span class="release-date"><%= movie.release_date.strftime("%d/%m/%Y") %></span>
+              </div>
+          </div>
+        </div>
+      <% end %>
+  </div>
+  <div class="display-flex center">
+    <%= paginate @movies %>
+  </div>
+</div>
+
 <script type="text/javascript">
     var timeout;
 
