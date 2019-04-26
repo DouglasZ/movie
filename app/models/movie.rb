@@ -46,7 +46,7 @@ class Movie < ApplicationRecord
 
           movie_name = detail.css('.titlebar-title.titlebar-title-lg').text
 
-          node_detail = detail.css('div.meta.col-xs-12.col-md-8')
+          node_detail = detail.css('div.meta')
 
           release_date = node_detail.css('.date.blue-link').text.split(' ')
           release_date[0] = release_date[0].to_i < 10 ? '0'+release_date[0] : release_date[0]
