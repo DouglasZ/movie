@@ -61,7 +61,8 @@ class Movie < ApplicationRecord
             end
           end
 
-          node_detail.css('.meta-body-item')[2].css('.blue-link').each_with_index do |cast_text, index|
+          # node_detail.css('.meta-body-item')[2].css('.blue-link').each_with_index do |cast_text, index|
+          node_detail.css('.meta-body-item')[2].css('span').drop(1).each_with_index do |cast_text, index|
             if  index+1 == 3
               cast += cast_text.text
             elsif index+1 < 3
@@ -69,12 +70,15 @@ class Movie < ApplicationRecord
             end
           end
 
-          genders = node_detail.css('.meta-body-item')[3].css('.blue-link')
+          # genders = node_detail.css('.meta-body-item')[3].css('.blue-link')
+          genders = node_detail.css('.meta-body-item.meta-body-info span').drop(1)
           genders.each_with_index do |gender_text, index|
-            if genders.length == index+1
-              gender += gender_text.text
-            else
-              gender += gender_text.text+', '
+            if gender_text.text != "/"
+              if genders.length == index+1
+                gender += gender_text.text
+                else
+                gender += gender_text.text+', '
+              end
             end
           end
           node_detail = detail.css('.section.ovw.ovw-synopsis')
