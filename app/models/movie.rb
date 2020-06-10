@@ -93,12 +93,10 @@ class Movie < ApplicationRecord
 
           genders = detail.css('section#original_header div.header_poster_wrapper div.title span.genres a')
           genders.each_with_index do |gender_text, index|
-            if gender_text.text != "/"
-              if genders.length == index+1
-                gender += gender_text.text
-              else
-                gender += gender_text.text+', '
-              end
+            if genders.length == index+1
+              gender += gender_text.text == "Thriller" ? 'Suspense' : gender_text.text
+            else
+              gender += (gender_text.text == "Thriller" ? 'Suspense' : gender_text.text)+', '
             end
           end
 
