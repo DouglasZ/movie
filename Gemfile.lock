@@ -109,7 +109,7 @@ GEM
     nokogiri (1.11.0.rc2-x64-mingw32)
     pg (1.1.4)
     pg (1.1.4-x64-mingw32)
-    puma (3.12.0)
+    puma (3.12.6)
     rack (2.0.6)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -197,7 +197,7 @@ DEPENDENCIES
   maskedinput-rails
   nokogiri (~> 1.11.0.rc2)
   pg (>= 0.18, < 2.0)
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.2)
   ruby-debug-ide (~> 0.7.2)
   sass-rails (~> 5.0)
