@@ -42,7 +42,8 @@ gem 'maskedinput-rails'
 # Paginação
 gem 'kaminari'
 
-gem 'nokogiri', '>= 1.8.0'
+#gem 'nokogiri', '>= 1.8.0'
+gem 'nokogiri', '~> 1.11.0.rc2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -58,3 +59,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bcrypt',         '3.1.12'
+
+gem 'ruby-debug-ide', '~> 0.7.2'

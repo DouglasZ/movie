@@ -36,23 +36,25 @@ class Movie < ApplicationRecord
     synopsis = nil
 
     Timeout::timeout(10) do
-      doc = Nokogiri::HTML(open(url))
-      nodes = doc.css('table.totalwidth.noborder.purehtml tr')
+      doc = Nokogiri::HTML.parse(open(url))
+      nodes = doc.css("div.sub-body main.content-layout section.movies-results ul li.mdl")
       nodes.each do |node|
-        if node.css('span.fs11').text.to_i == year.to_i
+        checkYear = node.css('div.meta-body div.meta-body-info span.date').text.split(' ')
+        checkYear = checkYear.length == 5 ? checkYear[4].to_i : checkYear[1].to_i
 
-          url_detail = URI.parse('http://www.adorocinema.com'+node.css('a')[0].xpath('@href').text)
-          detail = Nokogiri::HTML(open(url_detail))
+        if checkYear == year.to_i
 
-          movie_name = detail.css('.titlebar-title.titlebar-title-lg').text
+          movie_name = node.css('div.content-title span.meta-title-link').text
 
-          node_detail = detail.css('div.meta')
+          release_date = node.css('div.meta-body div.meta-body-info span.date').text.split(' ')
+          if release_date.length == 2
+            release_date = '01/'+month[release_date[0].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.to_s]+'/'+release_date[1]
+          else
+            release_date[0] = release_date[0].to_i < 10 ? '0'+release_date[0] : release_date[0]
+            release_date = release_date[0]+'/'+month[release_date[2].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.to_s]+'/'+release_date[4]
+          end
 
-          release_date = node_detail.css('.date.blue-link').text.split(' ')
-          release_date[0] = release_date[0].to_i < 10 ? '0'+release_date[0] : release_date[0]
-          release_date = release_date[0]+'/'+month[release_date[2].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.to_s]+'/'+release_date[4]
-
-          directors = node_detail.css('.meta-body-item')[1].css('.blue-link')
+          directors = node.css('div.meta-body div.meta-body-direction span.blue-link')
           directors.each_with_index do |director_text, index|
             if directors.length == index+1
               director += director_text.text
@@ -61,59 +63,58 @@ class Movie < ApplicationRecord
             end
           end
 
-          # node_detail.css('.meta-body-item')[2].css('.blue-link').each_with_index do |cast_text, index|
-          node_detail.css('.meta-body-item')[2].css('span').drop(1).each_with_index do |cast_text, index|
+          node.css('div.meta-body div.meta-body-actor span').drop(1).each_with_index do |cast_text, index|
             if  index+1 == 3
               cast += cast_text.text
             elsif index+1 < 3
               cast += cast_text.text+', '
             end
           end
-
-          # genders = node_detail.css('.meta-body-item')[3].css('.blue-link')
-          genders = node_detail.css('.meta-body-item.meta-body-info span').drop(1)
-          genders.each_with_index do |gender_text, index|
-            if gender_text.text != "/"
-              if genders.length == index+1
-                gender += gender_text.text
-                else
-                gender += gender_text.text+', '
-              end
-            end
-          end
-          node_detail = detail.css('.section.ovw.ovw-synopsis')
-          synopsis = node_detail.css('.content-txt').text.strip
-          original_title = node_detail.css('.ovw-synopsis-info').css('h2.that').text
-          original_title = !original_title.empty? ? original_title : movie_name
           break
         end
       end
     end
 
-    url = URI.parse('https://www.themoviedb.org/search/movie?query='+URI.encode(original_title)+'&language=en-US')
+    url = URI.parse('https://www.themoviedb.org/search/movie?query='+URI.encode(name)+'&language=pt-BR')
+
     Timeout::timeout(10) do
-      doc = Nokogiri::HTML(open(url))
-      nodes = doc.css('.image_content')
+      doc = Nokogiri::HTML.parse(open(url))
+      nodes = doc.css("section.search_results div.search_results.movie div.results div.card.v4.tight")
       nodes.each do |node|
-        # if node.css('.result').attr('title').text == original_title
-          src = node.css('.poster.lazyload.fade').attr('data-srcset').text.split(',')[1]
-          src = src[0..src.length-4]
+
+        date = node.css('div.details div.wrapper span.release_date').text.split(' ')
+        checkYear = date[4].to_i
+        checkMonth = month[date[2].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.to_s].to_i
+        checkYear = checkYear == year.to_i ? checkYear : checkMonth == 12 ? checkYear+1 : checkYear
+        if checkYear == year.to_i
+
+          url_detail = URI.parse('https://www.themoviedb.org'+node.css('div.title a').xpath('@href').text)
+          detail = Nokogiri::HTML(open(url_detail))
+
+          genders = detail.css('section#original_header div.header_poster_wrapper div.title span.genres a')
+          genders.each_with_index do |gender_text, index|
+            if gender_text.text != "/"
+              if genders.length == index+1
+                gender += gender_text.text
+              else
+                gender += gender_text.text+', '
+              end
+            end
+          end
+
+          synopsis = detail.css('section#original_header div.header_poster_wrapper div.header_info div.overview p').text.strip
+
+          url_detail_US = URI.parse('https://www.themoviedb.org'+node.css('div.title a').xpath('@href').text.split('?')[0]+'?language=en-US')
+          detail_US = Nokogiri::HTML(open(url_detail_US))
+
+          original_title = detail_US.css('section#original_header div.header_poster_wrapper div.title h2 a').text
+          original_title = !original_title.empty? ? original_title : movie_name
+
+          src = detail_US.css('section#original_header div.poster div.image_content img').attr('data-src')
           break
-        # end
+        end
       end
     end
-
-    # url = URI.parse('https://www.zeronave.com/search/'+URI.encode(name))
-    # Timeout::timeout(10) do
-    #   doc = Nokogiri::HTML(open(url))
-    #   nodes = doc.css('.block.margin-tb-10')
-    #   nodes.each do |node|
-    #     if node.css('.movie-heading small').text.to_i == year.to_i
-    #       src = node.css('.box-movie.medium').attr('src')
-    #       break
-    #     end
-    #   end
-    # end
     OpenStruct.new('src': src, 'movie_name': movie_name, 'original_title': original_title, 'release_date': release_date, 'director': director, 'gender': gender, 'synopsis': synopsis, 'cast': cast)
   end
 end
